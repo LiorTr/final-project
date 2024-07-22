@@ -1,0 +1,28 @@
+.VacationCard {
+    width: 300px;
+    display: inline-flex;
+    text-align: left;
+    background-image: linear-gradient(90deg, lightgreen, white);
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px;
+}
+
+.VacationCard img {
+    width: 60px;
+    height: 60px;
+    border: 1px solid;
+    border-radius: 10px;
+    vertical-align: middle;
+}
+
+.VacationCard>div:first-child {
+    display: flex;
+    flex-direction: column;
+}
+
+.VacationCard>div:last-child {
+    margin-left: auto;
+}

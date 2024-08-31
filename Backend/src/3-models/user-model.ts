@@ -31,6 +31,7 @@ export const UserSchema = new Schema<IUserModel>({
     },
     email: {
         type: String,
+        unique: true,
         required: [true, "Missing email."],
         maxlength: [80, "email too long."],
         trim: true,

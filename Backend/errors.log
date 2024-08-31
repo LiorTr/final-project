@@ -215,3 +215,214 @@ Stack: ValidationError: UserModel validation failed: password: Password must con
     at processTicksAndRejections (node:internal/process/task_queues:77:11)
 ---------------------------------------
 
+Time: Wed Aug 07 2024 21:12:41 GMT+0300 (שעון ישראל (קיץ))
+Message: Operation `users.findOne()` buffering timed out after 10000ms
+Stack: MongooseError: Operation `users.findOne()` buffering timed out after 10000ms
+    at Timeout.<anonymous> (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\lib\drivers\node-mongodb-native\collection.js:185:23)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+---------------------------------------
+
+Time: Wed Aug 07 2024 21:12:43 GMT+0300 (שעון ישראל (קיץ))
+Message: Operation `users.findOne()` buffering timed out after 10000ms
+Stack: MongooseError: Operation `users.findOne()` buffering timed out after 10000ms
+    at Timeout.<anonymous> (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\lib\drivers\node-mongodb-native\collection.js:185:23)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+---------------------------------------
+
+Time: Wed Aug 07 2024 21:12:51 GMT+0300 (שעון ישראל (קיץ))
+Message: Operation `users.findOne()` buffering timed out after 10000ms
+Stack: MongooseError: Operation `users.findOne()` buffering timed out after 10000ms
+    at Timeout.<anonymous> (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\lib\drivers\node-mongodb-native\collection.js:185:23)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+---------------------------------------
+
+Time: Wed Aug 07 2024 21:12:58 GMT+0300 (שעון ישראל (קיץ))
+Message: Operation `users.findOne()` buffering timed out after 10000ms
+Stack: MongooseError: Operation `users.findOne()` buffering timed out after 10000ms
+    at Timeout.<anonymous> (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\lib\drivers\node-mongodb-native\collection.js:185:23)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+---------------------------------------
+
+Time: Wed Aug 07 2024 21:15:18 GMT+0300 (שעון ישראל (קיץ))
+Message: Operation `users.insertOne()` buffering timed out after 10000ms
+Stack: MongooseError: Operation `users.insertOne()` buffering timed out after 10000ms
+    at Timeout.<anonymous> (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\lib\drivers\node-mongodb-native\collection.js:185:23)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+---------------------------------------
+
+Time: Wed Aug 07 2024 21:15:19 GMT+0300 (שעון ישראל (קיץ))
+Message: Operation `users.insertOne()` buffering timed out after 10000ms
+Stack: MongooseError: Operation `users.insertOne()` buffering timed out after 10000ms
+    at Timeout.<anonymous> (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\lib\drivers\node-mongodb-native\collection.js:185:23)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+---------------------------------------
+
+Time: Thu Aug 08 2024 09:55:11 GMT+0300 (שעון ישראל (קיץ))
+Message: GridFS Bucket is not initialized. Call connect() first.
+Stack: Error: GridFS Bucket is not initialized. Call connect() first.
+    at DAL.getGfsBucket (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\src\2-utils\dal.ts:42:19)
+    at C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\src\5-controllers\vacation-controller.ts:43:32
+    at Generator.next (<anonymous>)
+    at C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\src\5-controllers\vacation-controller.ts:8:71
+    at new Promise (<anonymous>)
+    at __awaiter (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\src\5-controllers\vacation-controller.ts:4:12)
+    at addVacation (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\src\5-controllers\vacation-controller.ts:50:16)
+    at Layer.handle [as handle_request] (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\express\lib\router\route.js:119:3)
+---------------------------------------
+
+Time: Thu Aug 08 2024 09:55:16 GMT+0300 (שעון ישראל (קיץ))
+Message: GridFS Bucket is not initialized. Call connect() first.
+Stack: Error: GridFS Bucket is not initialized. Call connect() first.
+    at DAL.getGfsBucket (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\src\2-utils\dal.ts:42:19)
+    at C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\src\5-controllers\vacation-controller.ts:43:32
+    at Generator.next (<anonymous>)
+    at C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\src\5-controllers\vacation-controller.ts:8:71
+    at new Promise (<anonymous>)
+    at __awaiter (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\src\5-controllers\vacation-controller.ts:4:12)
+    at addVacation (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\src\5-controllers\vacation-controller.ts:50:16)
+    at Layer.handle [as handle_request] (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\express\lib\router\route.js:119:3)
+---------------------------------------
+
+Time: Thu Aug 08 2024 09:55:48 GMT+0300 (שעון ישראל (קיץ))
+Message: GridFS Bucket is not initialized. Call connect() first.
+Stack: Error: GridFS Bucket is not initialized. Call connect() first.
+    at DAL.getGfsBucket (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\src\2-utils\dal.ts:42:19)
+    at C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\src\5-controllers\vacation-controller.ts:43:32
+    at Generator.next (<anonymous>)
+    at C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\src\5-controllers\vacation-controller.ts:8:71
+    at new Promise (<anonymous>)
+    at __awaiter (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\src\5-controllers\vacation-controller.ts:4:12)
+    at addVacation (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\src\5-controllers\vacation-controller.ts:50:16)
+    at Layer.handle [as handle_request] (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\express\lib\router\route.js:119:3)
+---------------------------------------
+
+Time: Thu Aug 08 2024 09:56:09 GMT+0300 (שעון ישראל (קיץ))
+Message: GridFS Bucket is not initialized. Call connect() first.
+Stack: Error: GridFS Bucket is not initialized. Call connect() first.
+    at DAL.getGfsBucket (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\src\2-utils\dal.ts:42:19)
+    at C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\src\5-controllers\vacation-controller.ts:43:32
+    at Generator.next (<anonymous>)
+    at C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\src\5-controllers\vacation-controller.ts:8:71
+    at new Promise (<anonymous>)
+    at __awaiter (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\src\5-controllers\vacation-controller.ts:4:12)
+    at addVacation (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\src\5-controllers\vacation-controller.ts:50:16)
+    at Layer.handle [as handle_request] (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\express\lib\router\route.js:119:3)
+---------------------------------------
+
+Time: Fri Aug 30 2024 20:26:27 GMT+0300 (שעון ישראל (קיץ))
+Message: VacationModel validation failed: description: description too long., endDate: End date cannot be earlier than start date., imageUrl: Missing image.
+Stack: undefined
+---------------------------------------
+
+Time: Fri Aug 30 2024 20:27:54 GMT+0300 (שעון ישראל (קיץ))
+Message: VacationModel validation failed: description: description too long., endDate: End date cannot be earlier than start date., imageUrl: Missing image.
+Stack: undefined
+---------------------------------------
+
+Time: Fri Aug 30 2024 20:28:17 GMT+0300 (שעון ישראל (קיץ))
+Message: VacationModel validation failed: endDate: End date cannot be earlier than start date., imageUrl: Missing image.
+Stack: undefined
+---------------------------------------
+
+Time: Sat Aug 31 2024 14:47:39 GMT+0300 (שעון ישראל (קיץ))
+Message: Operation `vacations.find()` buffering timed out after 10000ms
+Stack: MongooseError: Operation `vacations.find()` buffering timed out after 10000ms
+    at Timeout.<anonymous> (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\lib\drivers\node-mongodb-native\collection.js:185:23)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+---------------------------------------
+
+Time: Sat Aug 31 2024 14:47:49 GMT+0300 (שעון ישראל (קיץ))
+Message: Operation `vacations.find()` buffering timed out after 10000ms
+Stack: MongooseError: Operation `vacations.find()` buffering timed out after 10000ms
+    at Timeout.<anonymous> (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\lib\drivers\node-mongodb-native\collection.js:185:23)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+---------------------------------------
+
+Time: Sat Aug 31 2024 14:47:49 GMT+0300 (שעון ישראל (קיץ))
+Message: Operation `users.findOne()` buffering timed out after 10000ms
+Stack: MongooseError: Operation `users.findOne()` buffering timed out after 10000ms
+    at Timeout.<anonymous> (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\lib\drivers\node-mongodb-native\collection.js:185:23)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+---------------------------------------
+
+Time: Sat Aug 31 2024 14:47:52 GMT+0300 (שעון ישראל (קיץ))
+Message: Operation `users.findOne()` buffering timed out after 10000ms
+Stack: MongooseError: Operation `users.findOne()` buffering timed out after 10000ms
+    at Timeout.<anonymous> (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\lib\drivers\node-mongodb-native\collection.js:185:23)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+---------------------------------------
+
+Time: Sat Aug 31 2024 14:47:53 GMT+0300 (שעון ישראל (קיץ))
+Message: Operation `users.findOne()` buffering timed out after 10000ms
+Stack: MongooseError: Operation `users.findOne()` buffering timed out after 10000ms
+    at Timeout.<anonymous> (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\lib\drivers\node-mongodb-native\collection.js:185:23)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+---------------------------------------
+
+Time: Sat Aug 31 2024 14:49:35 GMT+0300 (שעון ישראל (קיץ))
+Message: Operation `users.findOne()` buffering timed out after 10000ms
+Stack: MongooseError: Operation `users.findOne()` buffering timed out after 10000ms
+    at Timeout.<anonymous> (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\lib\drivers\node-mongodb-native\collection.js:185:23)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+---------------------------------------
+
+Time: Sat Aug 31 2024 14:50:26 GMT+0300 (שעון ישראל (קיץ))
+Message: Operation `vacations.find()` buffering timed out after 10000ms
+Stack: MongooseError: Operation `vacations.find()` buffering timed out after 10000ms
+    at Timeout.<anonymous> (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\lib\drivers\node-mongodb-native\collection.js:185:23)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+---------------------------------------
+
+Time: Sat Aug 31 2024 15:02:55 GMT+0300 (שעון ישראל (קיץ))
+Message: Operation `vacations.find()` buffering timed out after 10000ms
+Stack: MongooseError: Operation `vacations.find()` buffering timed out after 10000ms
+    at Timeout.<anonymous> (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\lib\drivers\node-mongodb-native\collection.js:185:23)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+---------------------------------------
+
+Time: Sat Aug 31 2024 15:15:19 GMT+0300 (שעון ישראל (קיץ))
+Message: Operation `vacations.find()` buffering timed out after 10000ms
+Stack: MongooseError: Operation `vacations.find()` buffering timed out after 10000ms
+    at Timeout.<anonymous> (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\lib\drivers\node-mongodb-native\collection.js:185:23)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+---------------------------------------
+
+Time: Sat Aug 31 2024 15:15:29 GMT+0300 (שעון ישראל (קיץ))
+Message: Operation `vacations.find()` buffering timed out after 10000ms
+Stack: MongooseError: Operation `vacations.find()` buffering timed out after 10000ms
+    at Timeout.<anonymous> (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\lib\drivers\node-mongodb-native\collection.js:185:23)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+---------------------------------------
+
+Time: Sat Aug 31 2024 15:19:01 GMT+0300 (שעון ישראל (קיץ))
+Message: Operation `vacations.find()` buffering timed out after 10000ms
+Stack: MongooseError: Operation `vacations.find()` buffering timed out after 10000ms
+    at Timeout.<anonymous> (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\lib\drivers\node-mongodb-native\collection.js:185:23)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+---------------------------------------
+

@@ -1,3 +1,4 @@
+import Typography from "@mui/material/Typography";
 import { UserMenu } from "../../UserArea/UserMenu/UserMenu";
 import "./Header.css";
 
@@ -5,7 +6,10 @@ export function Header(): JSX.Element {
     return (
         <div className="Header">
             <UserMenu />
-			<h1>Northwind Traders</h1>
+            <Typography variant="h2" component="h2">
+                Vacation Site
+            </Typography>
+
         </div>
     );
 }

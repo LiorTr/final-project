@@ -1,17 +1,20 @@
-import mongoose from "mongoose"; // npm i mongoose
+import mongoose from "mongoose";
+import { GridFSBucket } from "mongodb";
 import { appConfig } from "./app-config";
 
-// DAL = Data Access Layer - The only one accessing the database.
 class DAL {
+    private db: mongoose.Connection;
 
-    // We need to call this function once:
+
     public async connect() {
         try {
+            // Connect to MongoDB
             const db = await mongoose.connect(appConfig.mongodbConnectionString);
+            this.db = db.connection;
+
             console.log(`We're connected to MongoDB, database: ${db.connections[0].name}`);
-        }
-        catch (err: any) {
-            console.log(err);
+        } catch (err) {
+            console.error(err);
         }
     }
 

@@ -2,66 +2,43 @@ import axios from "axios";
 import { UserModel } from "../Models/UserModel";
 import { appConfig } from "../Utils/AppConfig";
 import { store, userActions } from "../Redux/store";
-import { jwtDecode } from "jwt-decode"; // npm i jwt-decode
+import { jwtDecode } from "jwt-decode";
 import { CredentialsModel } from "../Models/CredentialsModel";
+import { notify } from "../Utils/notify";
 
 class UserService {
-
     public constructor() {
         const token = localStorage.getItem("token");
-        if(!token) return;
-        const container = jwtDecode<{ user: UserModel}>(token);
-        const dbUser = container.user;
-        const action = userActions.initUser(dbUser);
-        store.dispatch(action);
+        if (token) {
+            const container = jwtDecode<{ user: UserModel }>(token);
+            const dbUser = container.user;
+            store.dispatch(userActions.initUser(dbUser));
+        }
     }
 
     public async register(user: UserModel) {
-
-        // Send user to backend:
-        const response = await axios.post<string>(appConfig.registerUrl, user);
-
-        // Get token:
-        const token = response.data;
-
-        // Save token to storage: 
-        localStorage.setItem("token", token);
-
-        // Extract db user from token:
-        const container = jwtDecode<{ user: UserModel}>(token);
+        const response = await axios.post<{ token: string }>(appConfig.registerUrl, user);
+        const token = response.data.token;
+        if (token) localStorage.setItem("token", token);
+        const container = jwtDecode<{ user: UserModel }>(token);
         const dbUser = container.user;
-
-        // Send to redux:
-        const action = userActions.initUser(dbUser);
-        store.dispatch(action);
+        store.dispatch(userActions.initUser(dbUser));
     }
 
-    public async login(credentials: CredentialsModel) {
-
-        // Send credentials to backend:
-        const response = await axios.post<string>(appConfig.loginUrl, credentials);
-
-        // Get token:
-        const token = response.data;
-
-        // Save token to storage: 
-        localStorage.setItem("token", token);
-
-        // Extract db user from token:
-        const container = jwtDecode<{ user: UserModel}>(token);
+    public async login(credentials: CredentialsModel): Promise<UserModel> {
+        const response = await axios.post<{ token: string }>(appConfig.loginUrl, credentials);
+        const token = response.data.token;
+        if (token) localStorage.setItem("token", token);
+        const container = jwtDecode<{ user: UserModel }>(token);
         const dbUser = container.user;
-
-        // Send to redux:
-        const action = userActions.initUser(dbUser);
-        store.dispatch(action);
+        store.dispatch(userActions.initUser(dbUser));
+        return dbUser;
     }
 
     public logout() {
         localStorage.removeItem("token");
-        const action = userActions.logoutUser();
-        store.dispatch(action);
+        store.dispatch(userActions.logoutUser());
     }
-
 }
 
 export const userService = new UserService();

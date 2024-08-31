@@ -1,36 +1,53 @@
-import { configureStore, createSlice } from "@reduxjs/toolkit";
-import { addLikes, initLikes, initUser, logoutUser } from "./reducers";
+import { configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { UserModel } from "../Models/UserModel";
 import { LikeModel } from "../Models/LikesModel";
-
-// Application state:
+import { VacationModel } from "../Models/VacationModel";
+import { initUser, logoutUser, initVacations, addVacation, updateVacation, deleteVacation, } from "./reducers"
+// Application state
 export type AppState = {
     likes: LikeModel[];
     user: UserModel;
+    vacations: VacationModel[];
 };
 
-// Creating products slice: 
+// Creating slices
 const likesSlice = createSlice({
-    name: "likes", // Internal use
-    initialState: null,
-    reducers: { initLikes, addLikes }
+    name: "likes",
+    initialState: [] as LikeModel[],
+    reducers: {
+        initLikes: (state, action: PayloadAction<LikeModel[]>) => action.payload,
+        addLike: (state, action: PayloadAction<LikeModel>) => [...state, action.payload]
+    }
 });
 
-// Create user slice: 
+const vacationsSlice = createSlice({
+    name: "vacations",
+    initialState: [] as VacationModel[],
+    reducers: {
+        initVacations: (state, action: PayloadAction<VacationModel[]>) => action.payload,
+        addVacation: (state, action: PayloadAction<VacationModel>) => [...state, action.payload]
+    }
+});
+
 const userSlice = createSlice({
     name: "user",
-    initialState: null,
-    reducers: { initUser, logoutUser }
+    initialState: null as UserModel | null,
+    reducers: {
+        initUser: (state, action: PayloadAction<UserModel>) => action.payload,
+        logoutUser: () => null
+    }
 });
 
-// Creating action creators: 
+// Export actions
 export const likesActions = likesSlice.actions;
+export const vacationsActions = vacationsSlice.actions;
 export const userActions = userSlice.actions;
 
-// Main redux object:
+// Main redux store
 export const store = configureStore<AppState>({
     reducer: {
-        likes: likesSlice.reducer, // Likes state.
-        user: userSlice.reducer // User state
+        likes: likesSlice.reducer,
+        user: userSlice.reducer,
+        vacations: vacationsSlice.reducer
     }
 });

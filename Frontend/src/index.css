@@ -1,9 +1,11 @@
-html, body, #root {
+html,
+body,
+#root {
     margin: 0;
     padding: 0;
     height: 100%;
     text-align: center;
-    background-image: linear-gradient(lightblue, white);
+    background-image: radial-gradient(circle at 50% 10%, #ffffff 40%, #2196f3 100%);
 }
 
 a {
@@ -20,7 +22,8 @@ form {
     text-align: left;
 }
 
-form > input, form > button {
+form>input,
+form>button {
     width: 100%;
     box-sizing: border-box;
     margin-bottom: 20px;

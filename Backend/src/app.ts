@@ -7,54 +7,62 @@ import expressFileUpload from "express-fileupload";
 import { fileSaver } from "uploaded-file-saver";
 import path from "path";
 import cors from "cors";
-import expressRateLimit from "express-rate-limit"
+import expressRateLimit from "express-rate-limit";
 import { dal } from "./2-utils/dal";
 import { vacationController } from "./5-controllers/vacation-controller";
 import { likeController } from "./5-controllers/like-controller";
+
 class App {
-
     // Configure fileSaver once: 
-
-    // Create main server object: 
     private server = express();
 
     public async start() {
-        fileSaver.config(path.join(__dirname, "1-assets", "images"));
+        this.server.use('/files', express.static(path.join(__dirname, 'files')));
+        // Configure file saver
 
+        // Apply rate limiting
         this.server.use(expressRateLimit({
-            windowMs: 50000,
-            limit: 3,
+            windowMs: 15 * 60 * 1000, // 15 minutes
+            max: 100, // Limit each IP to 100 requests per windowMs
+            message: "Too many requests, please try again later."
         }));
 
-        // Enable CORS:
-        this.server.use(cors());
+        // Enable CORS
+        this.server.use(cors({
+            origin: "http://localhost:3000", // Allow requests from this origin
+            methods: ["GET", "POST", "PUT", "DELETE"],
+            allowedHeaders: ["Content-Type", "Authorization"]
+        }));
 
-        // Create the body from json: 
+        // Parse JSON body
         this.server.use(express.json());
 
-        // Read files into request.files:
+        // Handle file uploads
         this.server.use(expressFileUpload());
 
-        // Register middleware: 
-        // server.use(logsMiddleware.logRequest);
+        // Apply security middleware
         this.server.use(securityMiddleware.preventXssAttack);
 
-        // Register routes:
+        // Register routes
         this.server.use("/api", userController.router);
         this.server.use("/api", vacationController.router);
         this.server.use("/api", likeController.router);
 
-        // Register route not found middleware: 
+        // Middleware for handling 404 errors
         this.server.use("*", errorsMiddleware.routeNotFound);
 
-        // Register catchAll middleware:
+        // Middleware for handling all errors
         this.server.use(errorsMiddleware.catchAll);
-        // Connect to MongoDB:
+
+        // Connect to MongoDB
         await dal.connect();
 
-        // Run server:
-        this.server.listen(appConfig.port, () => console.log("Listening on http://localhost:" + appConfig.port));
+        // Start the server
+        this.server.listen(appConfig.port, () =>
+            console.log(`Listening on http://localhost:${appConfig.port}`)
+        );
     }
 }
+
 const app = new App();
 app.start();

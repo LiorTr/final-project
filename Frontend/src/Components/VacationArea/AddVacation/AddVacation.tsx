@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { notify } from "../../../Utils/notify";
 import { errorHandler } from "../../../Utils/ErrorHandler";
 import { VacationModel } from "../../../Models/VacationModel";
+import { vacationService } from "../../../Services/VacationsService";
 
 export function AddVacation(): JSX.Element {
 
@@ -13,10 +14,11 @@ export function AddVacation(): JSX.Element {
 
     async function send(vacation: VacationModel) {
         try {
-            vacation.image = (vacation.image as unknown as FileList)[0];
-            // await productService.addProduct();
+            const imageFile = (document.querySelector('input[type="file"]') as HTMLInputElement).files?.[0];
+            await vacationService.addVacation(vacation, imageFile);
+            console.log(vacation)
             notify.success("Vacation has been added.");
-            navigate("/vacations"); // Navigate to product page.
+            navigate("/vacations");
         }
         catch (err: any) {
             notify.error(errorHandler.getError(err));

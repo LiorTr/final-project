@@ -17,8 +17,6 @@ class Cyber {
 
     // Generate new JWT token:
     public generateNewToken(user: IUserModel): string {
-
-        // Create a payload without the password:
         const payload = {
             id: user._id,
             firstName: user.firstName,
@@ -27,13 +25,10 @@ class Cyber {
             roleId: user.roleId
         };
 
-        // Expires: 
         const options: SignOptions = { expiresIn: "3h" };
-
-        // Generate: 
         const token = jwt.sign(payload, this.secretKey, options);
 
-        // Return:
+        console.log(`Generated Token: ${token}`);  // Log for debugging
         return token;
     }
 

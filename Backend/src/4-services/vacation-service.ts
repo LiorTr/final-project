@@ -1,3 +1,4 @@
+import path from "path";
 import { ResourceNotFoundError, ValidationError } from "../3-models/client-error";
 import { IVacationModel, VacationModel } from "../3-models/vacation-model";
 
@@ -23,9 +24,10 @@ class VacationService {
         return vacation;
     }
 
-    public addVacation(vacation: IVacationModel) {
-        const error = vacation.validateSync(); // If no error - returns null.
+    public addVacation(vacationData: IVacationModel) {
+        const error = vacationData.validateSync(); // If no error - returns null.
         if (error) throw new ValidationError(error.message);
+        const vacation = new VacationModel(vacationData);
         return vacation.save();
     }
 
@@ -43,7 +45,10 @@ class VacationService {
     }
 
     // Mongo Query Language (MQL)
-
+    public async getVacationImage(imageName: string): Promise<string> {
+        const imagePath = path.join(__dirname, '..', 'uploads', imageName);
+        return imagePath;
+    }
 
 
 }

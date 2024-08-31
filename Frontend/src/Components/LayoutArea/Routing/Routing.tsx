@@ -16,7 +16,7 @@ export function Routing(): JSX.Element {
                 <Route path="/" element={<Navigate to="/home" />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/vacations" element={<VacationList />} />
-                <Route path="/new-product" element={<AddVacation />} />
+                <Route path="/new-vacation" element={<AddVacation />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />

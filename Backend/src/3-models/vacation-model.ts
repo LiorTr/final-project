@@ -1,4 +1,3 @@
-import fileUpload from 'express-fileupload';
 import { validators } from './validate';
 import { Document, Schema, model } from "mongoose";
 
@@ -10,6 +9,7 @@ export interface IVacationModel extends Document {
     startDate: Date;
     endDate: Date;
     price: number;
+    imageUrl: string
 }
 
 export const VacationSchema = new Schema<IVacationModel>({
@@ -54,12 +54,17 @@ export const VacationSchema = new Schema<IVacationModel>({
             message: 'End date cannot be earlier than start date.'
         }
     },
-
+    imageUrl: {
+        type: String,
+        required: [true, "Missing image."],
+        default: ""
+    }
 }, {
     versionKey: false,
     timestamps: true,
 
 });
+
 
 
 export const VacationModel = model<IVacationModel>("VacationModel", VacationSchema, "vacations"); 

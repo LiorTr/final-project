@@ -25,14 +25,14 @@ class VacationService {
     }
 
     public addVacation(vacationData: IVacationModel) {
-        const error = vacationData.validateSync(); // If no error - returns null.
+        const error = vacationData.validateSync();
         if (error) throw new ValidationError(error.message);
         const vacation = new VacationModel(vacationData);
         return vacation.save();
     }
 
     public async updateVacation(vacation: IVacationModel) {
-        const error = vacation.validateSync(); // If no error - returns null.
+        const error = vacation.validateSync();
         if (error) throw new ValidationError(error.message);
         const updatedVacation = await VacationModel.findByIdAndUpdate(vacation._id, vacation, { returnOriginal: false }).exec();
         if (!updatedVacation) throw new ResourceNotFoundError(vacation._id.toString());

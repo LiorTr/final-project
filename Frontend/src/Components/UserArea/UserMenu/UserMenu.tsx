@@ -9,6 +9,14 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material/styles';
+
+// Styled Button to match font and size
+const CustomButton = styled(Button)({
+    fontFamily: 'Roboto, sans-serif',
+    fontSize: '16px', // Adjust the font size to match your typography
+    textTransform: 'none', // Prevents uppercase transformation
+});
 
 export function UserMenu(): JSX.Element {
     const user = useSelector<AppState, UserModel>(store => store.user);
@@ -23,39 +31,89 @@ export function UserMenu(): JSX.Element {
     return (
         <div className="UserMenu">
             {!user && (
-                <Box sx={{ flexGrow: 1, }}>
-                    <AppBar position="static" sx={{ borderRadius: "10px" }}>
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 16px' }}>
+                <AppBar sx={{ backgroundColor: 'black' }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 16px' }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                            <Typography variant="h6" style={{ fontSize: "30px", color: 'white', fontFamily: 'Roboto, sans-serif' }}>
+                                Vacation Site
+                            </Typography>
+                        </Box>
 
-                            <Button color="inherit" >
+                        <Box sx={{ display: 'flex', gap: 2 }}>
+                            <CustomButton color="inherit">
                                 <NavLink
                                     to="/login"
-                                    style={{ textDecoration: 'none', color: 'inherit', fontFamily: 'Roboto, sans-serif' }}
+                                    style={{ textDecoration: 'none', color: 'inherit' }}
                                 >
-                                    <Typography variant="subtitle1">Please log in</Typography>
+                                    <Typography variant="subtitle1" style={{ fontFamily: 'Roboto, sans-serif', color: 'white' }}>
+                                        Please log in
+                                    </Typography>
                                 </NavLink>
-                            </Button>
-                            <Typography variant="subtitle1">|</Typography>
-                            <Button color="inherit" >
+                            </CustomButton>
+                            <CustomButton color="inherit">
                                 <NavLink
                                     to="/register"
-                                    style={{ textDecoration: 'none', color: 'inherit', fontFamily: 'Roboto, sans-serif' }}
+                                    style={{ textDecoration: 'none', color: 'inherit' }}
                                 >
-                                    <Typography variant="subtitle1"> Register</Typography>
+                                    <Typography variant="subtitle1" style={{ fontFamily: 'Roboto, sans-serif', color: 'white' }}>
+                                        Register
+                                    </Typography>
                                 </NavLink>
-                            </Button>
+                            </CustomButton>
                         </Box>
-                    </AppBar>
-                </Box >
-            )} {user && (
-                <>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 16px' }}>
-                        <Typography variant="h6">Hello {user.firstName} {user.lastName}</Typography>
-                        <Button color="inherit" onClick={logout}>Logout</Button>
                     </Box>
-
-                </>
+                </AppBar>
             )}
-        </div >
+            {user && (
+                <AppBar sx={{ backgroundColor: 'black' }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 16px' }}>
+                        <Typography variant="h6" style={{ fontSize: "30px", color: 'white', fontFamily: 'Roboto, sans-serif' }}>
+                            Vacation Site
+                        </Typography>
+                        <Box sx={{ display: 'flex', gap: 2 }}>
+                            <Typography variant="subtitle1" style={{ fontFamily: 'Roboto, sans-serif' }}>
+                                <NavLink
+                                    to="/home"
+                                    style={{ textDecoration: 'none', color: 'white' }}
+                                >
+                                    Home
+                                </NavLink>
+                            </Typography>
+                            <Typography variant="subtitle1" style={{ fontFamily: 'Roboto, sans-serif' }}>
+                                <NavLink
+                                    to="/vacations"
+                                    style={{ textDecoration: 'none', color: 'white' }}
+                                >
+                                    Vacations
+                                </NavLink>
+                            </Typography>
+                            <Typography variant="subtitle1" style={{ fontFamily: 'Roboto, sans-serif' }}>
+                                <NavLink
+                                    to="/new-vacation"
+                                    style={{ textDecoration: 'none', color: 'white' }}
+                                >
+                                    Add Vacation
+                                </NavLink>
+                            </Typography>
+                            <Typography variant="subtitle1" style={{ fontFamily: 'Roboto, sans-serif' }}>
+                                <NavLink
+                                    to="/about"
+                                    style={{ textDecoration: 'none', color: 'white' }}
+                                >
+                                    About
+                                </NavLink>
+                            </Typography>
+                        </Box>
+                        <Box sx={{ display: 'flex', gap: 2 }}>
+                            <Typography variant="h6" style={{ color: '#9b77e6', fontFamily: 'Roboto, sans-serif' }}>Welcome</Typography>
+                            <Typography variant="h6" style={{ color: 'white', fontFamily: 'Roboto, sans-serif' }}>
+                                {user.firstName} {user.lastName}
+                            </Typography>
+                            <Button style={{ color: 'white', fontFamily: 'Roboto, sans-serif' }} onClick={logout}>Logout</Button>
+                        </Box>
+                    </Box>
+                </AppBar>
+            )}
+        </div>
     );
 }

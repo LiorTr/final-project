@@ -26,14 +26,29 @@ class UserService {
     }
 
     public async login(credentials: CredentialsModel): Promise<UserModel> {
-        const response = await axios.post<{ token: string }>(appConfig.loginUrl, credentials);
-        const token = response.data.token;
-        if (token) localStorage.setItem("token", token);
-        const container = jwtDecode<{ user: UserModel }>(token);
-        const dbUser = container.user;
-        store.dispatch(userActions.initUser(dbUser));
-        return dbUser;
+        try {
+            const response = await axios.post<{ token: string }>(appConfig.loginUrl, credentials);
+            const token = response.data.token;
+            if (token) localStorage.setItem("token", token);
+            const container = jwtDecode<any>(token); 
+            const dbUser = new UserModel({
+                _id: container.id, 
+                firstName: container.firstName,
+                lastName: container.lastName,
+                email: container.email,
+                password: '', 
+                roleId: container.roleId
+            });
+            store.dispatch(userActions.initUser(dbUser));
+            return dbUser;
+        } catch (error) {
+            console.error('Error in login method:', error);
+            throw error;
+        }
     }
+    
+    
+    
 
     public logout() {
         localStorage.removeItem("token");

@@ -10,9 +10,21 @@ class UserService {
     public constructor() {
         const token = localStorage.getItem("token");
         if (token) {
-            const container = jwtDecode<{ user: UserModel }>(token);
-            const dbUser = container.user;
-            store.dispatch(userActions.initUser(dbUser));
+            try {
+                const container = jwtDecode<{ user: UserModel }>(token);
+                const dbUser = container.user;
+
+                // Check if the user object is valid
+                if (dbUser && dbUser._id) {
+                    // Dispatch the complete user object
+                    store.dispatch(userActions.initUser(dbUser));
+                } else {
+                    console.warn("Invalid user data:", dbUser);
+                }
+            } catch (error) {
+                console.error("Error decoding token:", error);
+                localStorage.removeItem("token");
+            }
         }
     }
 
@@ -22,7 +34,10 @@ class UserService {
         if (token) localStorage.setItem("token", token);
         const container = jwtDecode<{ user: UserModel }>(token);
         const dbUser = container.user;
-        store.dispatch(userActions.initUser(dbUser));
+
+        if (dbUser) {
+            store.dispatch(userActions.initUser(dbUser)); // Dispatch the complete user object
+        }
     }
 
     public async login(credentials: CredentialsModel): Promise<UserModel> {
@@ -30,25 +45,23 @@ class UserService {
             const response = await axios.post<{ token: string }>(appConfig.loginUrl, credentials);
             const token = response.data.token;
             if (token) localStorage.setItem("token", token);
-            const container = jwtDecode<any>(token); 
-            const dbUser = new UserModel({
-                _id: container.id, 
+            const container = jwtDecode<any>(token);
+            const dbUser: UserModel = {
+                _id: container.id,
                 firstName: container.firstName,
                 lastName: container.lastName,
                 email: container.email,
-                password: '', 
-                roleId: container.roleId
-            });
-            store.dispatch(userActions.initUser(dbUser));
+                password: '',
+                roleId: container.roleId // Ensure all properties are included
+            };
+
+            store.dispatch(userActions.initUser(dbUser)); // Dispatch the complete user object
             return dbUser;
         } catch (error) {
             console.error('Error in login method:', error);
             throw error;
         }
     }
-    
-    
-    
 
     public logout() {
         localStorage.removeItem("token");

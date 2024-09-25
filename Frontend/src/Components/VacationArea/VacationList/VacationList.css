@@ -1,1 +1,6 @@
-.vacationList {}
+.vacationList {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  justify-content: center;
+}

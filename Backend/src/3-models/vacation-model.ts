@@ -1,7 +1,4 @@
-import { validators } from './validate';
-import { Document, Schema, model } from "mongoose";
-
-
+import { Document, Schema, model } from 'mongoose';
 
 export interface IVacationModel extends Document {
     destination: string;
@@ -9,62 +6,55 @@ export interface IVacationModel extends Document {
     startDate: Date;
     endDate: Date;
     price: number;
-    imageUrl: string
+    image: string;
 }
 
-export const VacationSchema = new Schema<IVacationModel>({
-    destination: {
-        type: String,
-        required: [true, "Missing  destination."],
-        minlength: [2, "destination name too short"],
-        maxlength: [50, "destination name too short."],
-        validate: validators.nameValidator,
-        trim: true,
-    },
-    description: {
-        type: String,
-        required: [true, "Missing last name."],
-        minlength: [10, "description too short"],
-        maxlength: [200, "description too long."],
-        trim: true,
-    },
-    startDate: {
-        type: Date,
-        required: [true, "Missing start date."],
-        validate: {
-            validator: function (value) {
-                if (this.endDate && value > this.endDate) {
-                    return false;
-                }
-                return true;
+export const VacationSchema = new Schema<IVacationModel>(
+    {
+        destination: {
+            type: String,
+            required: [true, 'Destination is required'],
+            minlength: [2, 'Destination must be at least 2 characters long'],
+            maxlength: [100, 'Destination cannot be longer than 100 characters'],
+            trim: true,
+        },
+        description: {
+            type: String,
+            required: [true, 'Description is required'],
+            minlength: [10, 'Description must be at least 10 characters long'],
+            maxlength: [1000, 'Description cannot be longer than 1000 characters'],
+            trim: true,
+        },
+        startDate: {
+            type: Date,
+            required: [true, 'Start date is required'],
+        },
+        endDate: {
+            type: Date,
+            required: [true, 'End date is required'],
+            validate: {
+                validator: function (endDate: Date) {
+                    return endDate > this.startDate;
+                },
+                message: 'End date must be after start date',
             },
-            message: 'Start date cannot be later than end date.'
-        }
+        },
+        price: {
+            type: Number,
+            required: [true, 'Price is required'],
+            min: [0, 'Price must be a positive number'],
+        },
+        image: {
+            type: String,
+            required: [true, 'Image name is required'],
+            trim: true,
+        },
     },
-    endDate: {
-        type: Date,
-        required: [true, "Missing password."],
-        validate: {
-            validator: function (value) {
-                if (this.startDate && value > this.startDate) {
-                    return false;
-                }
-                return true;
-            },
-            message: 'End date cannot be earlier than start date.'
-        }
-    },
-    imageUrl: {
-        type: String,
-        required: [true, "Missing image."],
-        default: ""
-    }
-}, {
-    versionKey: false,
-    timestamps: true,
+    { versionKey: false }
+);
 
-});
-
-
-
-export const VacationModel = model<IVacationModel>("VacationModel", VacationSchema, "vacations"); 
+export const VacationModel = model<IVacationModel>(
+    'VacationModel',
+    VacationSchema,
+    'vacations'
+);

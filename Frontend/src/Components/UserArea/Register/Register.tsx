@@ -17,27 +17,27 @@ export function Register(): JSX.Element {
             notify.success("Welcome " + user.firstName);
             navigate("/home");
         }
-        catch(err: any) {
+        catch (err: any) {
             notify.error(errorHandler.getError(err));
         }
     }
 
     return (
         <div className="Register">
-            
+
             <form onSubmit={handleSubmit(send)}>
 
                 <label>First name: </label>
-                <input type="text" {...register("firstName")} />
+                <input type="text" placeholder="please enter your first name"{...register("firstName")} />
 
                 <label>Last name: </label>
-                <input type="text" {...register("lastName")} />
+                <input type="text" placeholder="please enter your last name"{...register("lastName")} />
 
                 <label>Email: </label>
-                <input type="email" {...register("email")} />
+                <input type="email" placeholder="please enter your email"{...register("email")} />
 
                 <label>Password: </label>
-                <input type="password" {...register("password")} />
+                <input type="password" placeholder="please enter your password" {...register("password")} />
 
                 <button>Register</button>
 

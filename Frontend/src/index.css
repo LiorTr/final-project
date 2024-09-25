@@ -64,7 +64,6 @@ form>button:focus {
     outline: none;
     border: 1px solid #bb86fc;
     background: #222222;
-    color: #e0e0e0;
 }
 
 form>button {
@@ -77,9 +76,7 @@ form>button:hover {
     background: #9b77e6;
 }
 
-form>input::placeholder {
-    color: #e0e0e0;
-}
+
 
 form>input:focus::placeholder {
     color: #a0a0a0;

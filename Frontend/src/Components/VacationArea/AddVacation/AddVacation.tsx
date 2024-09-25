@@ -12,18 +12,16 @@ export function AddVacation(): JSX.Element {
 
     const navigate = useNavigate();
 
-    async function send(vacation: VacationModel) {
+    const send = async (vacation: VacationModel) => {
         try {
-            const imageFile = (document.querySelector('input[type="file"]') as HTMLInputElement).files?.[0];
-            await vacationService.addVacation(vacation, imageFile);
-            console.log(vacation)
-            notify.success("Vacation has been added.");
-            navigate("/vacations");
+            vacation.image = (vacation.image as unknown as FileList)[0];
+            await vacationService.addVacation(vacation);
+            notify.success('Vacation added successfully');
+            navigate('/home');
+        } catch (err) {
+            errorHandler.getError(err);
         }
-        catch (err: any) {
-            notify.error(errorHandler.getError(err));
-        }
-    }
+    };
 
     return (
         <div className="AddVacation">
@@ -44,7 +42,7 @@ export function AddVacation(): JSX.Element {
                 <input type="number" {...register("price")} required />
 
                 <label>Image: </label>
-                <input type="file" accept="image/*" {...register("image")} />
+                <input type="file" accept="image/*" {...register("image")} required />
 
                 <button>Add</button>
                 <button onClick={() => { }}>Cancel</button>

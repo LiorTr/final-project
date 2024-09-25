@@ -1,59 +1,68 @@
-import express, { Request, Response, NextFunction } from "express";
-import { VacationModel } from './../3-models/vacation-model';
-import { vacationService } from "../4-services/vacation-service";
-import { StatusCode } from './../3-models/enums';
-import { ValidationError } from "../3-models/client-error";
-import { UploadedFile } from "express-fileupload";
-import { appConfig } from "../2-utils/app-config";
-import { securityMiddleware } from "../6-middleware/security-middleware";
-import path from "path";
-
+import express, { Request, Response, NextFunction } from 'express';
+import { StatusCode } from '../3-models/enums';
+import { securityMiddleware } from '../6-middleware/security-middleware';
+import { vacationService } from '../4-services/vacation-service';
+import { VacationModel } from '../3-models/vacation-model';
+import { UploadedFile } from 'express-fileupload';
+import path from 'path';
+import { appConfig } from '../2-utils/app-config';
+import fs from 'fs';
 class VacationController {
     public readonly router = express.Router();
-
     public constructor() {
-        this.router.get("/vacations/", this.getSomeVacations, securityMiddleware.validateLogin);
-        this.router.post("/vacations/", this.addVacation, securityMiddleware.validateLogin);
-        this.router.put("/vacations/", this.updateVacation);
-        this.router.delete("/vacations/", this.deleteVacation);
-        this.router.get('/vacations/images/:imageName', this.getVacationImage, securityMiddleware.validateLogin);
+        this.router.get(
+            '/vacations',
+            this.getAllVacations,
+            securityMiddleware.validateLogin
+        );
+        this.router.get(
+            '/vacations/:id',
+            this.getOneVacation,
+            securityMiddleware.validateLogin
+        );
+        this.router.post(
+            '/vacations',
+            // securityMiddleware.validateAdmin,
+            this.addVacation
+        );
+        // this.router.put(
+        //   '/vacations/:id([0-9]+)',
+        //   securityMiddleware.validateAdmin,
+        //   this.updateVacation
+        // );
+        this.router.delete(
+            '/vacations/:id',
+            securityMiddleware.validateAdmin,
+            this.deleteVacation
+        );
+        this.router.get(
+            '/vacations/images/:imageName',
+            this.getVacationImage,
+            securityMiddleware.validateLogin
+        );
     }
-
-
-    private async getSomeVacations(request: Request, response: Response, next: NextFunction) {
+    private async getAllVacations(
+        request: Request,
+        response: Response,
+        next: NextFunction
+    ) {
         try {
-            const page = +request.query.page || 1;
-            const limit = +request.query.limit || 9;
-            const result = await vacationService.getVacationsPerPage(page, limit);
-            response.json(result);
-        } catch (err) {
-            if (err instanceof ValidationError) {
-                response.status(StatusCode.BadRequest).json({ message: err.message });
-            } else {
-                next(err);
-            }
-        }
-    }
-
-
-
-    private async updateVacation(request: Request, response: Response, next: NextFunction): Promise<void> {
-        try {
-            const _id = request.params._id;
-            request.body._id = _id;
-            const vacation = new VacationModel(request.body);
-            const updatedVacation = await vacationService.updateVacation(vacation);
-            response.json(updatedVacation);
+            console.log('Getting all vacations from the database...');
+            const vacations = await vacationService.getAllVacations();
+            response.json(vacations);
         } catch (err: any) {
             next(err);
         }
     }
-
-    private async deleteVacation(request: Request, response: Response, next: NextFunction): Promise<void> {
+    private async getOneVacation(
+        request: Request,
+        response: Response,
+        next: NextFunction
+    ) {
         try {
-            const _id = request.params._id;
-            await vacationService.deleteVacation(_id);
-            response.sendStatus(StatusCode.NoContent);
+            const id = request.params.id;
+            const vacation = await vacationService.getVacationById(id);
+            response.json(vacation);
         } catch (err: any) {
             next(err);
         }
@@ -77,18 +86,62 @@ class VacationController {
                 }
             });
             const imageName =
-                appConfig.baseImageUrl + + imageFile.name.trim();
+                appConfig.baseImageUrl + imageFile.name.trim();
             const vacation = new VacationModel({
                 ...request.body,
                 image: imageName,
             });
-            const addedVacation = await vacationService.addVacation(vacation);
+            const addedVacation = await vacationService.createVacation(vacation);
             response.status(StatusCode.Created).json(addedVacation);
+        } catch (err: any) {
+            ``
+            next(err);
+        }
+    }
+    // public async updateVacation(
+    //   request: Request,
+    //   response: Response,
+    //   next: NextFunction
+    // ) {
+    //   try {
+    //     const id = request.params.id;
+    //     const vacationData = request.body;
+
+    //     const image = request.files?.image as UploadedFile | undefined;
+
+    // const updatedVacation = await vacationService.updateVacation(
+    //   id,
+    //   vacationData,
+    //   image
+    // );
+
+    //     response.json(updatedVacation);
+    //   } catch (err: any) {
+    //     if (err.name === 'ResourceNotFoundError') {
+    //       response.status(404).json({message: err.message});
+    //     } else {
+    //       next(err);
+    //     }
+    //   }
+    // }
+    private async deleteVacation(
+        request: Request,
+        response: Response,
+        next: NextFunction
+    ) {
+        try {
+            const id = request.params.id;
+            //remove image file from uploads
+            const vacation = await vacationService.getVacationById(id);
+            const imageName = vacation.image.split('/').pop();
+            const imagePath = path.join(__dirname, '..', 'uploads', imageName);
+            fs.unlinkSync(imagePath);
+            await vacationService.deleteVacation(id);
+            response.sendStatus(StatusCode.NoContent);
         } catch (err: any) {
             next(err);
         }
     }
-
     private async getVacationImage(
         request: Request,
         response: Response,
@@ -103,5 +156,4 @@ class VacationController {
         }
     }
 }
-
 export const vacationController = new VacationController();

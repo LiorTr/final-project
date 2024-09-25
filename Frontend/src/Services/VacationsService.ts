@@ -1,51 +1,44 @@
-import axios, { AxiosRequestConfig } from "axios";
-import { appConfig } from "../Utils/AppConfig";
-import { vacationsActions, store } from "../Redux/store";
-import { VacationModel } from "../Models/VacationModel";
+import axios from 'axios';
+import { appConfig } from '../Utils/AppConfig';
+import { VacationModel } from '../Models/VacationModel';
+import { store, vacationsActions } from '../Redux/store';
 
 class VacationService {
-
-    public async getVacations() {
-        const stateVacations = store.getState().vacations;
-
-        if (stateVacations && stateVacations.length > 0) {
-            return stateVacations;
+    async getVacations(): Promise<VacationModel[]> {
+        if (store.getState().vacations.length > 0) {
+            return store.getState().vacations;
         }
+        const response = await axios.get(appConfig.vacationsUrl);
+        const data = response.data;
 
-        const response = await axios.get<VacationModel[]>(appConfig.vacationsUrl);
-        const vacations = response.data;
-
-        const action = vacationsActions.initVacations(vacations);
+        const action = vacationsActions.initVacation(data);
         store.dispatch(action);
-
-        return vacations;
+        return data;
+    }
+    async getVacationById(_id: string) {
+        return await axios.get(appConfig.vacationsUrl + _id);
+    }
+    async addVacation(vacation: VacationModel): Promise<void> {
+        const response = await axios.post(appConfig.vacationsUrl, vacation, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+        vacation.image = response.data.image;
+        if (store.getState().vacations) {
+            const action = vacationsActions.addVacation(vacation);
+            store.dispatch(action);
+        }
+        return response.data;
     }
 
-    public async addVacation(vacation: VacationModel, imageFile: File) {
-        // Create FormData object
-        const formData = new FormData();
-        formData.append("destination", vacation.destination);
-        formData.append("description", vacation.description);
-        formData.append("startDate", vacation.startDate.toString());
-        formData.append("endDate", vacation.endDate.toString());
-        formData.append("price", vacation.price.toString());
-
-        // Handle file input
-        if (imageFile) {
-            formData.append("image", imageFile);
-        }
-
-        // Send FormData to backend
-        const options: AxiosRequestConfig = { headers: { "Content-Type": "multipart/form-data" } };
-        const response = await axios.post<VacationModel>(appConfig.vacationsUrl, formData, options);
-
-        // Get back the added vacation
-        const addedVacation = response.data;
-
-        // Add added vacation to global state
-        const action = vacationsActions.addVacation(addedVacation);
-        store.dispatch(action);
-    }
+    // async deleteVacation(_id: string) {
+    //     const action = vacationsActions.deleteVacation(_id);
+    //     store.dispatch(action);
+    //     return await axios.delete(appConfig.vacationsUrl + _id);
+    // }
+    // async getVacationImage(imageName: string) {
+    //     return await axios.get(appConfig.baseImageUrl + imageName);
+    // }
 }
-
 export const vacationService = new VacationService();

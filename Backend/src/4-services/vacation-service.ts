@@ -1,55 +1,100 @@
-import path from "path";
-import { ResourceNotFoundError, ValidationError } from "../3-models/client-error";
-import { IVacationModel, VacationModel } from "../3-models/vacation-model";
-
+import { UploadedFile } from 'express-fileupload';
+import path from 'path';
+import { ResourceNotFoundError } from '../3-models/client-error';
+import { IVacationModel, VacationModel } from '../3-models/vacation-model';
 class VacationService {
-
-    public async getVacationsPerPage(page: number, limit: number) {
-        const currentPage = page > 0 ? page - 1 : 0;
-        const vacations = await VacationModel.find(
-            {},
-            ["-_id", "destination", "price", "description"]
-        )
-            .sort({ startDate: 1 })
-            .skip(currentPage * limit)
-            .limit(limit)
-            .exec();
-
-        return vacations;
-    }
-
-    public async getOneVacation(_id: string) {
+    public async getVacationById(_id: string): Promise<IVacationModel> {
         const vacation = await VacationModel.findById(_id).exec();
-        if (!vacation) throw new ResourceNotFoundError(_id);
+        if (!vacation) {
+            throw new ResourceNotFoundError('Vacation not found');
+        }
         return vacation;
     }
 
-    public addVacation(vacationData: IVacationModel) {
-        const error = vacationData.validateSync();
-        if (error) throw new ValidationError(error.message);
+    public async getAllVacations(): Promise<IVacationModel[]> {
+        const vacations = await VacationModel.aggregate([
+            {
+                $lookup: {
+                    from: 'likes',
+                    localField: '_id',
+                    foreignField: 'vacationId',
+                    as: 'likes',
+                },
+            },
+            {
+                $addFields: {
+                    likesCount: { $size: '$likes' },
+                },
+            },
+            {
+                $project: {
+                    destination: 1,
+                    description: 1,
+                    startDate: 1,
+                    endDate: 1,
+                    price: 1,
+                    image: 1,
+                    likes: 1,
+                    likesCount: 1,
+                },
+            },
+        ]).exec();
+
+        console.log(vacations); // Log the result to debug
+        return vacations;
+    }
+
+    public async createVacation(
+        vacationData: IVacationModel
+    ): Promise<IVacationModel> {
         const vacation = new VacationModel(vacationData);
         return vacation.save();
     }
 
-    public async updateVacation(vacation: IVacationModel) {
-        const error = vacation.validateSync();
-        if (error) throw new ValidationError(error.message);
-        const updatedVacation = await VacationModel.findByIdAndUpdate(vacation._id, vacation, { returnOriginal: false }).exec();
-        if (!updatedVacation) throw new ResourceNotFoundError(vacation._id.toString());
-        return updatedVacation;
-    }
+    // public async updateVacation(
+    //   vacation: IVacationModel
+    // ): Promise<IVacationModel> {
+    //   vacation.validate();
+    //   const imageName = await fileSaver.add(vacation.image);
+    //   vacation.save();
+    //   vacation = await this.getVacationById(`${vacation._id}`);
+    //   return vacation;
+    // }
 
-    public async deleteVacation(_id: string) {
-        const deletedVacation = await VacationModel.findByIdAndDelete(_id).exec();
-        if (!deletedVacation) throw new ResourceNotFoundError(_id);
-    }
-
-    // Mongo Query Language (MQL)
     public async getVacationImage(imageName: string): Promise<string> {
         const imagePath = path.join(__dirname, '..', 'uploads', imageName);
         return imagePath;
     }
 
+    public async sortVacationsByDates(): Promise<IVacationModel[]> {
+        const vacations = await VacationModel.find().sort({ startDate: 1 }).exec();
+        return vacations;
+    }
 
+    public async getVacationsByLikes(): Promise<IVacationModel[]> {
+        const vacations = await VacationModel.aggregate([
+            {
+                $lookup: {
+                    from: 'likes',
+                    localField: '_id',
+                    foreignField: 'vacationId',
+                    as: 'likes',
+                },
+            },
+            {
+                $addFields: {
+                    likesCount: { $size: '$likes' },
+                },
+            },
+            {
+                $sort: { likesCount: -1 },
+            },
+        ]).exec();
+        return vacations;
+    }
+
+    public async deleteVacation(_id: string): Promise<void> {
+        await VacationModel.deleteOne({ _id }).exec();
+    }
 }
-export const vacationService = new VacationService()
+export const vacationService = new VacationService();

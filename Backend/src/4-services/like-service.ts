@@ -1,35 +1,26 @@
-import { ResourceNotFoundError, ValidationError } from "../3-models/client-error";
-import { ILikeModel, LikeModel } from "../3-models/like-model";
-
+import { ILikeModel, LikeModel } from '../3-models/like-model';
 class LikeService {
-
-    public async getLikesPerVacation(vacationId: string) {
-        const likes = await LikeModel.find(
-            {},
-            ["-_id", "userId", "-vacationId"]
-        )
-
-            .exec();
-
-        return likes.length;
+    public async isUserLikedVacation(
+        vacationId: string,
+        userId: string
+    ): Promise<boolean> {
+        const like = await LikeModel.findOne({ vacationId, userId }).exec();
+        return !!like;
+    }
+    public async likeVacation(userId: string, vacationId: string): Promise<void> {
+        const like = new LikeModel({ vacationId, userId });
+        await like.save();
+    }
+    public async unlikeVacation(
+        vacationId: string,
+        userId: string
+    ): Promise<void> {
+        await LikeModel.deleteOne({ vacationId, userId }).exec();
     }
 
-    public addLike(like: ILikeModel) {
-        const error = like.validateSync(); // If no error - returns null.
-        if (error) throw new ValidationError(error.message);
-        return like.save();
+    public async getLikesCount(vacationId: string): Promise<number> {
+        const likesCount = await LikeModel.countDocuments({ vacationId });
+        return likesCount;
     }
-
-
-
-    public async deleteLike(_id: string) {
-        const deletedLike = await LikeModel.findByIdAndDelete(_id).exec();
-        if (!deletedLike) throw new ResourceNotFoundError(_id);
-    }
-
-    // Mongo Query Language (MQL)
-
-
-
 }
-export const likeService = new LikeService()
+export const likeService = new LikeService();

@@ -1,44 +1,29 @@
-import axios, { AxiosRequestConfig } from "axios";
-import { appConfig } from "../Utils/AppConfig";
-import { store, likesActions } from "../Redux/store";
-import { LikeModel } from "../Models/LikesModel";
+import axios from 'axios';
+import { appConfig } from '../Utils/AppConfig';
+import { notify } from '../Utils/notify';
 
 class LikeService {
-
-    public async getLikes() {
-
-        // If we have vacations in the global state - return them, without fetching from server:
-        if (store.getState().likes) return store.getState().likes;
-
-        // We don't have vacations in the global state - fetch them from backend: 
-        const response = await axios.get<LikeModel[]>(appConfig.likesUrl);
-        const likes = response.data;
-
-        // Init all vacations in the global state: 
-        const action = likesActions.initLikes(likes);
-        store.dispatch(action);
-
-        // Return:
-        return likes;
+    public async likeVacation(userId: string, vacationId: string): Promise<void> {
+        const response = await axios.post(appConfig.likesUrl, {
+            vacationId,
+            userId,
+        });
     }
-
-    public async addLike(like: LikeModel) {
-
-        // Send product to backend: 
-        const options: AxiosRequestConfig = { headers: { "Content-Type": "multipart/form-data" } };
-        const response = await axios.post<LikeModel>(appConfig.likesUrl, like, options);
-
-        // Don't add that product to redux if global state is empty:
-        if (!store.getState().likes) return;
-
-        // Get back the added product: 
-        const addedLike = response.data;
-
-        // Send added product to global state: 
-        const action = likesActions.addLike();
-        store.dispatch(action);
+    public async unlikeVacation(
+        vacationId: string,
+        userId: string
+    ): Promise<void> {
+        try {
+            await axios.delete(`${appConfig.likesUrl}${vacationId}`, {
+                data: { userId },
+            });
+            notify.success('Vacation unLiked');
+        } catch (err) {
+            notify.error('Failed to unlike vacation');
+        }
     }
-
+    public async getLikesCount(vacationId: string): Promise<number> {
+        return 0;
+    }
 }
-
 export const likeService = new LikeService();

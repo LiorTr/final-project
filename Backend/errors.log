@@ -426,3 +426,130 @@ Stack: MongooseError: Operation `vacations.find()` buffering timed out after 100
     at processTimers (node:internal/timers:514:7)
 ---------------------------------------
 
+Time: Thu Sep 05 2024 08:50:47 GMT+0300 (שעון ישראל (קיץ))
+Message: VacationModel validation failed: destination:  Name must contain only letters., description: description too long., endDate: End date cannot be earlier than start date., imageUrl: Missing image.
+Stack: undefined
+---------------------------------------
+
+Time: Thu Sep 05 2024 08:50:55 GMT+0300 (שעון ישראל (קיץ))
+Message: VacationModel validation failed: destination:  Name must contain only letters., description: description too long., endDate: End date cannot be earlier than start date., imageUrl: Missing image.
+Stack: undefined
+---------------------------------------
+
+Time: Thu Sep 05 2024 08:50:55 GMT+0300 (שעון ישראל (קיץ))
+Message: VacationModel validation failed: destination:  Name must contain only letters., description: description too long., endDate: End date cannot be earlier than start date., imageUrl: Missing image.
+Stack: undefined
+---------------------------------------
+
+Time: Thu Sep 05 2024 08:50:55 GMT+0300 (שעון ישראל (קיץ))
+Message: VacationModel validation failed: destination:  Name must contain only letters., description: description too long., endDate: End date cannot be earlier than start date., imageUrl: Missing image.
+Stack: undefined
+---------------------------------------
+
+Time: Thu Sep 05 2024 16:58:37 GMT+0300 (שעון ישראל (קיץ))
+Message: VacationModel validation failed: destination:  Name must contain only letters., description: description too long., endDate: End date cannot be earlier than start date., imageUrl: Missing image.
+Stack: undefined
+---------------------------------------
+
+Time: Thu Sep 05 2024 17:00:04 GMT+0300 (שעון ישראל (קיץ))
+Message: VacationModel validation failed: imageUrl: Missing image.
+Stack: undefined
+---------------------------------------
+
+Time: Thu Sep 05 2024 17:01:11 GMT+0300 (שעון ישראל (קיץ))
+Message: ENOENT: no such file or directory, open 'C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\src\uploads\newYork.jpg'
+Stack: Error: ENOENT: no such file or directory, open 'C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\src\uploads\newYork.jpg'
+---------------------------------------
+
+Time: Thu Sep 05 2024 17:04:29 GMT+0300 (שעון ישראל (קיץ))
+Message: Route /api/uploads/newYork.jpg not found.
+Stack: undefined
+---------------------------------------
+
+Time: Thu Sep 05 2024 17:04:29 GMT+0300 (שעון ישראל (קיץ))
+Message: Route /favicon.ico not found.
+Stack: undefined
+---------------------------------------
+
+Time: Sat Sep 07 2024 17:39:53 GMT+0300 (שעון ישראל (קיץ))
+Message: Route /favicon.ico not found.
+Stack: undefined
+---------------------------------------
+
+Time: Sat Sep 07 2024 17:56:32 GMT+0300 (שעון ישראל (קיץ))
+Message: VacationModel validation failed: dateEnd: End date is required, dateStart: Start date is required
+Stack: ValidationError: VacationModel validation failed: dateEnd: End date is required, dateStart: Start date is required
+    at model.Document.invalidate (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\lib\document.js:3318:32)
+    at C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\lib\document.js:3079:17
+    at C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\lib\schemaType.js:1388:9
+    at processTicksAndRejections (node:internal/process/task_queues:77:11)
+---------------------------------------
+
+Time: Mon Sep 09 2024 18:17:08 GMT+0300 (שעון ישראל (קיץ))
+Message: Cannot do exclusion on field vacationId in inclusion projection
+Stack: MongoServerError: Cannot do exclusion on field vacationId in inclusion projection
+    at Connection.sendCommand (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\node_modules\mongodb\src\cmap\connection.ts:526:17)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Connection.command (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\node_modules\mongodb\src\cmap\connection.ts:609:22)
+    at async Server.command (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\node_modules\mongodb\src\sdam\server.ts:326:16)
+    at async FindOperation.execute (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\node_modules\mongodb\src\operations\find.ts:108:12)
+    at async executeOperation (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\node_modules\mongodb\src\operations\execute_operation.ts:196:12)
+    at async FindCursor._initialize (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\node_modules\mongodb\src\cursor\find_cursor.ts:79:22)
+    at async FindCursor.[kInit] (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\node_modules\mongodb\src\cursor\abstract_cursor.ts:657:21)
+    at async next (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\node_modules\mongodb\src\cursor\abstract_cursor.ts:763:7)
+    at async FindCursor.next (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\node_modules\mongodb\src\cursor\abstract_cursor.ts:401:12)
+---------------------------------------
+
+Time: Mon Sep 09 2024 18:18:24 GMT+0300 (שעון ישראל (קיץ))
+Message: Route /api/likes/66dc6ccf75896391d2b597e7 not found.
+Stack: undefined
+---------------------------------------
+
+Time: Mon Sep 09 2024 18:19:07 GMT+0300 (שעון ישראל (קיץ))
+Message: Route /api/likes/66dc6ccf75896391d2b597e7 not found.
+Stack: undefined
+---------------------------------------
+
+Time: Mon Sep 09 2024 18:19:13 GMT+0300 (שעון ישראל (קיץ))
+Message: Route /api/likes/66dc69e875896391d2b597e2 not found.
+Stack: undefined
+---------------------------------------
+
+Time: Mon Sep 09 2024 18:19:20 GMT+0300 (שעון ישראל (קיץ))
+Message: Route /api/likes/66dc69e875896391d2b597e2 not found.
+Stack: undefined
+---------------------------------------
+
+Time: Wed Sep 18 2024 09:08:37 GMT+0300 (שעון ישראל (קיץ))
+Message: Route /api/likes/ not found.
+Stack: undefined
+---------------------------------------
+
+Time: Wed Sep 18 2024 09:09:47 GMT+0300 (שעון ישראל (קיץ))
+Message: Route /api/likes/ not found.
+Stack: undefined
+---------------------------------------
+
+Time: Wed Sep 18 2024 09:16:09 GMT+0300 (שעון ישראל (קיץ))
+Message: Route /api/likes/ not found.
+Stack: undefined
+---------------------------------------
+
+Time: Wed Sep 18 2024 09:26:55 GMT+0300 (שעון ישראל (קיץ))
+Message: LikeModel validation failed: vacationId: Path `vacationId` is required.
+Stack: ValidationError: LikeModel validation failed: vacationId: Path `vacationId` is required.
+    at model.Document.invalidate (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\lib\document.js:3318:32)
+    at C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\lib\document.js:3079:17
+    at C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\lib\schemaType.js:1388:9
+    at processTicksAndRejections (node:internal/process/task_queues:77:11)
+---------------------------------------
+
+Time: Wed Sep 18 2024 09:27:57 GMT+0300 (שעון ישראל (קיץ))
+Message: E11000 duplicate key error collection: vacationSite.users index: email_1 dup key: { email: "cryoxen93@gmail.com" }
+Stack: MongoServerError: E11000 duplicate key error collection: vacationSite.users index: email_1 dup key: { email: "cryoxen93@gmail.com" }
+    at InsertOneOperation.execute (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\node_modules\mongodb\src\operations\insert.ts:83:13)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async executeOperation (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\node_modules\mongodb\src\operations\execute_operation.ts:196:12)
+    at async Collection.insertOne (C:\Users\cryox\OneDrive\Desktop\final\final-project\Backend\node_modules\mongoose\node_modules\mongodb\src\collection.ts:269:12)
+---------------------------------------
+
